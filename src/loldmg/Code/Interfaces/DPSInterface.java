@@ -14,6 +14,6 @@ import loldmg.Code.BonusStats;
  */
 public interface DPSInterface {
     
-    public float GetAADPS(Champion attacker, BonusStats attackerStats, Champion target, BonusStats targetStats, GraphInterface graphInterface, int level);
+    public float GetAADPS(Champion attacker, BonusStats attackerStats, Champion target, BonusStats targetStats, int level);
     
 }
