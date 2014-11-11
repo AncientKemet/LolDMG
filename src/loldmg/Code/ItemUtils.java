@@ -52,7 +52,7 @@ public class ItemUtils {
     }
 
     public  ArrayList<Item> FindBestItemsToPurchase(ArrayList<Item> currentItems,  Champion myChamp, Champion target, int level, int currentGold) {
-        PurchaseItem(currentItems, myChamp, target, level, currentGold);
+        PurchaseMaxItems(currentItems, myChamp, target, level, currentGold);
         return (finalItems);
     }
 
