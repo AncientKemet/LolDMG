@@ -10,6 +10,7 @@ import dto.Static.ChampionSpell;
 import dto.Static.Item;
 import java.util.ArrayList;
 import java.util.List;
+import static loldmg.LolDmg.itemList;
 
 /**
  *
@@ -22,33 +23,36 @@ public class ItemUtils {
      * remove the original items.
      */
     static ArrayList<Item> finalItems;
-    static int dps=0;
-    static int gold=0;
+    static int dps = 0;
+    static int gold = 0;
 
-    public static void PurchaseItem(ArrayList<Item> purchasedItems, ArrayList<Item> purchasableItems,Champion myChamp, Champion target, int level, int cash) {
+    public  void PurchaseMaxItems(ArrayList<Item> purchasedItems,  Champion myChamp, Champion target, int level, int cash) {
         if (purchasedItems.size() < 6) {
-            for (int i = 0; i < purchasableItems.size(); i++) {
-                if (purchasableItems.get(i).getGold().getBase() < cash) {
-                    purchasedItems.add(purchasableItems.get(i));
-                    PurchaseItem(purchasedItems, purchasableItems,myChamp,target,level, cash - purchasableItems.get(i).getGold().getBase());
+            for (String key : itemList.getData().keySet()) {
+                if (itemList.getData().get(key).getGold().getBase() < cash) {
+                    purchasedItems.add(itemList.getData().get(key));
+                    PurchaseMaxItems(purchasedItems,  myChamp, target, level, cash - itemList.getData().get(key).getGold().getBase());
                 }
             }
         }
-        System.out.println("dps goes here");
 
         //calculate dps for each item
         List<ChampionSpell> rotation = null;
-        ChampionSpell aa=new ChampionSpell();
+        ChampionSpell aa = new ChampionSpell();
         rotation.add(aa);
-        int dps2=Graph.rotationdps(myChamp,target,rotation,purchasedItems,level);
-        if(dps2>dps){
-            dps=dps2;
-            finalItems=purchasedItems;
-            gold=cash;}
+
+        int dps2 = Graph.rotationdps(myChamp, target, rotation, purchasedItems, level);
+
+        if (dps2 > dps) {
+            System.out.println("max curr dps= " + dps2);
+            dps = dps2;
+            finalItems = purchasedItems;
+            gold = cash;
+        }
     }
 
-    public static ArrayList<Item> FindBestItemToPurchase(ArrayList<Item> currentItems, ArrayList<Item> purchasableItems,Champion myChamp, Champion target, int level, int currentGold) {
-        PurchaseItem(currentItems, purchasableItems,myChamp,target,level,currentGold);
+    public  ArrayList<Item> FindBestItemsToPurchase(ArrayList<Item> currentItems,  Champion myChamp, Champion target, int level, int currentGold) {
+        PurchaseItem(currentItems, myChamp, target, level, currentGold);
         return (finalItems);
     }
 
