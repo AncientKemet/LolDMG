@@ -24,7 +24,6 @@ public class AADPSGraph {
             
             
             double baseAttackSpeed = 0.625 / (1 - attacker.getStats().getAttackspeedoffset());
-            System.out.println("as "+level+" "+(baseAttackSpeed +baseAttackSpeed *(attacker.getStats().getAttackspeedperlevel() * level / 100)));
 
             //multiply base dmg by attackspeed
             baseDmg *= baseAttackSpeed + (baseAttackSpeed *(attacker.getStats().getAttackspeedperlevel() * level / 100));

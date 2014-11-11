@@ -100,7 +100,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private XYDataset createDataset(Champion dealer, Champion target) {
 
-        final XYSeries series1 = new XYSeries("Damage");
+        final XYSeries series1 = new XYSeries("Damage per second done by auto attacks");
         new AADPSGraph(dealer, target, new GraphInterface() {
 
             @Override
