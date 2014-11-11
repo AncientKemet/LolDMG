@@ -35,7 +35,7 @@ public class ItemUtils {
                 }
             }
         }
-
+        else{
         //calculate dps for each item
         List<ChampionSpell> rotation = null;
         ChampionSpell aa = new ChampionSpell();
@@ -49,6 +49,9 @@ public class ItemUtils {
             finalItems = purchasedItems;
             gold = cash;
         }
+       
+    }
+         purchasedItems.remove(purchasedItems.size()-1);
     }
 
     public  ArrayList<Item> FindBestItemsToPurchase(ArrayList<Item> currentItems,  Champion myChamp, Champion target, int level, int currentGold) {
