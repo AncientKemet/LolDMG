@@ -55,7 +55,7 @@ public class Graph {
         }
         if (rotation != null) {
             if (debug) {
-                System.out.println(attacker.getName() + " vs " + target.getName());
+                //System.out.println(attacker.getName() + " vs " + target.getName());
             }
 
             damage = 0;
@@ -67,7 +67,7 @@ public class Graph {
                 }
             }
             if (debug) {
-                System.out.println("dmg = " + damage);
+                //System.out.println("dmg = " + damage);
             }
             return (int) (Math.round(damage));
 

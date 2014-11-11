@@ -11,8 +11,10 @@ import constant.staticdata.ItemData;
 import constant.staticdata.ItemListData;
 import dto.Static.Champion;
 import dto.Static.ChampionList;
+import dto.Static.Item;
 import dto.Static.ItemList;
 import java.util.logging.Logger;
+import loldmg.Code.ItemUtils;
 import loldmg.GUI.LoadingFrame;
 import loldmg.GUI.MainFrame;
 import main.java.riotapi.RiotApi;
@@ -41,6 +43,13 @@ public class LolDmg {
             
             championList = api.getDataChampionList(Region.NA, null, null, true, ChampData.ALL);
             itemList = api.getDataItemList(null, null, ItemListData.ALL);
+            
+            ItemUtils.allItems = new Item[itemList.getData().keySet().size()];
+            for (int i = 0; i < itemList.getData().keySet().size(); i=i) {
+                for (String key : itemList.getData().keySet()) {
+                    ItemUtils.allItems[i++] = itemList.getData().get(key);
+                }
+            }
             
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {

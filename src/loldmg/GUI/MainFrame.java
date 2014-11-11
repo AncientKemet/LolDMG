@@ -6,14 +6,17 @@
 package loldmg.GUI;
 
 import dto.Static.Champion;
+import dto.Static.Item;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import loldmg.Code.AADPSGraph;
 import loldmg.Code.BonusStats;
 import loldmg.Code.HealthGraph;
 import loldmg.Code.Interfaces.GraphInterface;
+import loldmg.Code.ItemUtils;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -103,10 +106,28 @@ public class MainFrame extends javax.swing.JFrame {
 
         final XYSeries series1 = new XYSeries("Damage per second done by auto attacks");
         AADPSGraph aadps = new AADPSGraph();
+        
         BonusStats attackerBonusStats = new BonusStats();
         BonusStats targetBonusStats = new BonusStats();
-        for (int i = 1; i < 19; i++) {
-            series1.add(i, aadps.GetAADPS(dealer, attackerBonusStats, target, targetBonusStats, i));
+        
+        ArrayList<Item> purchasedItems = new ArrayList<Item>();
+        
+        int gold = 2000;
+        
+        for (int level = 1; level < 19; level++) {
+            System.out.println("level: "+level+" gold: "+gold);
+            
+            
+            
+            purchasedItems = ItemUtils.FindBestItemsToPurchase(purchasedItems, dealer, target, level, gold);
+            
+            gold= ItemUtils.gold + 1050;
+            /*for (Item itemToPurchase : itemsToPurchase) {
+                gold -= itemToPurchase.getGold().getBase();
+                ItemUtils.PurchaseItem(purchasedItems, itemToPurchase);
+            }*/
+            
+            series1.add(level, aadps.GetAADPS(dealer, attackerBonusStats, target, targetBonusStats, level));
         }
 
         final XYSeries series2 = new XYSeries("Target HP");
