@@ -11,10 +11,7 @@ package loldmg.Code.Interfaces;
  */
 public interface GraphInterface {
 
-    public void NewData(int i);
+    public void NewData(int x, int value);
 
-    public void SetX(String level);
-
-    public void SetY(String damage);
     
 }

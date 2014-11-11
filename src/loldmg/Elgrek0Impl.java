@@ -11,12 +11,11 @@ import loldmg.Code.Interfaces.GraphInterface;
  *
  * @author Robert
  */
-class KemetsImpl implements GraphInterface {
+public class Elgrek0Impl implements GraphInterface {
 
     @Override
     public void NewData(int x, int value) {
-        
+        System.out.println("x: "+x+" value: "+value);
     }
-
     
 }

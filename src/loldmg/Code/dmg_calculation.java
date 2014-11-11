@@ -11,7 +11,7 @@ package loldmg.Code;
  */
 public class dmg_calculation {
 
-    double dmgafterdefence(double damage, double defence, double defencepen, double defencepen_per) {
+    public static double dmgafterdefence(double damage, double defence, double defencepen, double defencepen_per) {
         double defenceleft = defence * (1 - defencepen_per) - defencepen;
         if (defenceleft >= 0) {
             return (damage * 100 / (defenceleft + 100));
@@ -20,7 +20,7 @@ public class dmg_calculation {
         }
     }
 
-    double dps(double dmg, double cooldown) {
+    public static double dps(double dmg, double cooldown) {
         return (dmg / cooldown);
 
     }
