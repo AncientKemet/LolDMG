@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import loldmg.Code.AADPSGraph;
+import loldmg.Code.BonusStats;
 import loldmg.Code.HealthGraph;
 import loldmg.Code.Interfaces.GraphInterface;
 import org.jfree.chart.ChartFactory;
@@ -101,13 +102,12 @@ public class MainFrame extends javax.swing.JFrame {
     private XYDataset createDataset(Champion dealer, Champion target) {
 
         final XYSeries series1 = new XYSeries("Damage per second done by auto attacks");
-        new AADPSGraph(dealer, target, new GraphInterface() {
-
-            @Override
-            public void NewData(int x, int value) {
-                series1.add(x, value);
-            }
-        });
+        AADPSGraph aadps = new AADPSGraph();
+        BonusStats attackerBonusStats = new BonusStats();
+        BonusStats targetBonusStats = new BonusStats();
+        for (int i = 1; i < 19; i++) {
+            series1.add(i, aadps.GetAADPS(dealer, attackerBonusStats, target, targetBonusStats, i));
+        }
 
         final XYSeries series2 = new XYSeries("Target HP");
         if (ShowTargetHP.isSelected()) {

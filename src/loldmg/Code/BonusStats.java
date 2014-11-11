@@ -15,5 +15,7 @@ public class BonusStats {
     public int AP;
     public int AS;
     public int ARM;
+    public double ARM_PER_PEN;
+    public int ARM_FLAT_PEN;
     public int MR;
 }
