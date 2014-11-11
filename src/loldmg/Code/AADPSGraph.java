@@ -8,29 +8,24 @@ package loldmg.Code;
 import dto.Static.Champion;
 import dto.Static.ChampionSpell;
 import java.util.List;
+import loldmg.Code.Interfaces.DPSInterface;
 import loldmg.Code.Interfaces.GraphInterface;
 
 /**
  *
  * @author Robert
  */
-public class AADPSGraph {
+public class AADPSGraph implements DPSInterface {
 
-    public AADPSGraph(Champion attacker, Champion target, GraphInterface graphInterface) {
-        double damage = 0;
-        for (int level = 1; level < 19; level++) {
-            
+    @Override
+    public float GetAADPS(Champion attacker, BonusStats attackerStats, Champion target, BonusStats targetStats, int level) {
             double baseDmg = attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level;
             
-            
             double baseAttackSpeed = 0.625 / (1 - attacker.getStats().getAttackspeedoffset());
-
-            //multiply base dmg by attackspeed
-            baseDmg *= baseAttackSpeed + (baseAttackSpeed *(attacker.getStats().getAttackspeedperlevel() * level / 100));
+            baseDmg *= baseAttackSpeed + ((attackerStats.AS + baseAttackSpeed *(attacker.getStats().getAttackspeedperlevel() * level) / 100));
             
-            damage = dmg_calculation.dmgafterdefence(baseDmg, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0);
-            graphInterface.NewData(level, (int) damage);
-        }
+            double damage = dmg_calculation.dmgafterdefence(baseDmg + attackerStats.AD, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, attackerStats.ARM_FLAT_PEN, attackerStats.ARM_PER_PEN);
+            return (float) damage;
     }
 
 }
