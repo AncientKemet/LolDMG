@@ -6,9 +6,12 @@
 package loldmg;
 
 import constant.Region;
-import dto.Static.Item;
+import constant.staticdata.ChampData;
+import constant.staticdata.ItemData;
+import constant.staticdata.ItemListData;
+import dto.Static.Champion;
+import dto.Static.ChampionList;
 import dto.Static.ItemList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.java.riotapi.RiotApi;
 import main.java.riotapi.RiotApiException;
@@ -19,20 +22,24 @@ import main.java.riotapi.RiotApiException;
  */
 public class LolDmg {
 
-    /**
-     * @param args the command line arguments
-     */
+    public static ChampionList championList;
+    public static ItemList itemList;
+            
     public static void main(String[] args) {
         RiotApi api = new RiotApi("e445f0eb-c76f-456e-b255-22931dcf8fef");
-        api.setRegion(Region.EUNE);
+        api.setRegion(Region.NA);
         try {
-            ItemList item = api.getDataItemList();
-            for (String key : item.getData().keySet()) {
-                System.out.println("Item["+key+"] : "+item.getData().get(key).getName());
-            }
+            
+            championList = api.getDataChampionList(Region.NA, null, null, true, ChampData.ALL);
+            itemList = api.getDataItemList(null, null, ItemListData.ALL);
+            
+            /*for (String key : champList.getData().keySet()) {
+                Champion champ =  champList.getData().get(key);
+                System.out.println("Item["+key+"] :"+champ.getTags());
+            }*/
             
         } catch (RiotApiException ex) {
-            Logger.getLogger(LolDmg.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
