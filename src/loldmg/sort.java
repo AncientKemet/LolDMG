@@ -20,7 +20,7 @@ public class sort {
         int loc = 0;
         for (String key : allitems.getData().keySet()) {
             BasicDataStats stats = allitems.getData().get(key).getStats();
-            if (stats.getFlatAttackSpeedMod() > 0 || stats.getFlatCritChanceMod() > 0 || stats.getFlatPhysicalDamageMod() > 0 || stats.getrFlatArmorPenetrationMod() > 0 || stats.getrPercentArmorPenetrationMod() > 0) {
+            if (stats.getPercentAttackSpeedMod() > 0 || stats.getFlatCritChanceMod() > 0 || stats.getFlatPhysicalDamageMod() > 0 || stats.getrFlatArmorPenetrationMod() > 0 || stats.getrPercentArmorPenetrationMod() > 0) {
                 tempstorage[loc] = allitems.getData().get(key);
                 loc++;
             }

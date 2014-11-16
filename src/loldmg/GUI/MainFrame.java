@@ -114,14 +114,14 @@ public class MainFrame extends javax.swing.JFrame {
         
         int gold = 2000;
         
-        for (int level = 1; level < 19; level++) {
+        for (int level = 1; level < 10; level++) {
             System.out.println("level: "+level+" gold: "+gold);
             
             
-            
-            purchasedItems = ItemUtils.FindBestItemsToPurchase(purchasedItems, dealer, target, level, gold);
-            
-            gold= ItemUtils.gold + 1050;
+            ItemUtils buildgetter=new ItemUtils();
+            purchasedItems = buildgetter.FindBestItemsToPurchase(purchasedItems, dealer, target, level, gold);
+           gold=buildgetter.gold;
+           gold+=1000;
             /*for (Item itemToPurchase : itemsToPurchase) {
                 gold -= itemToPurchase.getGold().getBase();
                 ItemUtils.PurchaseItem(purchasedItems, itemToPurchase);

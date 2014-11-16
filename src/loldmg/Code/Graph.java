@@ -35,7 +35,7 @@ public class Graph {
             for (int k = 0; k < rotation.size(); k++) {
 
                 if (rotation.get(k).getVars() == null) {
-                    damage += dmgafterdefence(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0);
+                    damage += dmgafterdefence(itemstats.CRIT*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0);
                 }
             }
             if (debug) {
@@ -63,7 +63,7 @@ public class Graph {
             for (int k = 0; k < rotation.size(); k++) {
 
                 if (rotation.get(k).getVars() == null) {
-                    damage += dmgafterdefence(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0)
+                    damage += dmgafterdefence(itemstats.CRIT*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0)
                             * (0.625 / (1 + attacker.getStats().getAttackspeedoffset())) * (1 + itemstats.AS/100+attacker.getStats().getAttackspeedperlevel() * level / 100);
                 }
             }
