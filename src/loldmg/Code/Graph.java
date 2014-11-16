@@ -18,7 +18,7 @@ import static loldmg.Code.dmg_calculation.dmgafterdefence;
  */
 public class Graph {
 
-    static boolean debug = true;
+    static boolean debug = false;
 
     public static int rotationdmg(Champion attacker, Champion target, List<ChampionSpell> rotation, ArrayList<Item> purchasedItems, int level) {
         double damage = 0;
@@ -55,7 +55,7 @@ public class Graph {
         }
         if (rotation != null) {
             if (debug) {
-                //System.out.println(attacker.getName() + " vs " + target.getName());
+                System.out.println(attacker.getName() + " vs " + target.getName());
             }
 
             damage = 0;
@@ -63,11 +63,12 @@ public class Graph {
             for (int k = 0; k < rotation.size(); k++) {
 
                 if (rotation.get(k).getVars() == null) {
-                    damage += dmgafterdefence(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0) * (0.625 / (1 - attacker.getStats().getAttackspeedoffset())) * (1 + (itemstats.AS+attacker.getStats().getAttackspeedperlevel() * level / 100));
+                    damage += dmgafterdefence(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0)
+                            * (0.625 / (1 + attacker.getStats().getAttackspeedoffset())) * (1 + itemstats.AS/100+attacker.getStats().getAttackspeedperlevel() * level / 100);
                 }
             }
             if (debug) {
-                //System.out.println("dmg = " + damage);
+                System.out.println("dmg = " + damage);
             }
             return (int) (Math.round(damage));
 

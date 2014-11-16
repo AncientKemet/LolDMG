@@ -30,6 +30,7 @@ public class ItemUtils {
     public static void PurchaseMaxItems(ArrayList<Item> purchasedItems,  Champion myChamp, Champion target, int level, int cash) {
         if (purchasedItems.size() < 6) {
             for (int i = 0; i < allItems.length; i++) {
+                
                 Item item = allItems[i];
                 if (item.getGold().getTotal() > 359)
                 if (item.getGold().getTotal() < cash) {
