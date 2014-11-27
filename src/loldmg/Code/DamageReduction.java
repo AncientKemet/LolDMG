@@ -9,7 +9,7 @@ package loldmg.Code;
  *
  * @author User
  */
-public class dmg_calculation {
+public class DamageReduction {
 
     public static double dmgafterdefence(double damage, double defence, double defencepen, double defencepen_per) {
         double defenceleft = defence * (1 - defencepen_per) - defencepen;

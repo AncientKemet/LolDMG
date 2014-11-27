@@ -10,17 +10,17 @@ import dto.Static.ChampionSpell;
 import dto.Static.Item;
 import java.util.ArrayList;
 import java.util.List;
-import static loldmg.Code.dmg_calculation.dmgafterdefence;
+import static loldmg.Code.DamageReduction.dmgafterdefence;
 
 /**
  *
  * @author Robert
  */
-public class Graph {
+public class DamageCalculation {
 
     static boolean debug = false;
 
-    public static int rotationdmg(Champion attacker, Champion target, List<ChampionSpell> rotation, ArrayList<Item> purchasedItems, int level) {
+    public static int rotationdmg(Champion attacker, Champion target, List<Ability> rotation, ArrayList<Item> purchasedItems, int level) {
         double damage = 0;
         BonusStats itemstats = new BonusStats();
         for (int i = 0; i < purchasedItems.size(); i++) {
@@ -32,11 +32,14 @@ public class Graph {
             }
 
             damage = 0;
+            Ability currentability;
             for (int k = 0; k < rotation.size(); k++) {
-
-                if (rotation.get(k).getVars() == null) {
-                    damage += dmgafterdefence(itemstats.CRIT*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0);
-                }
+               currentability =rotation.get(k);
+                double crit=itemstats.CRIT;
+                if(crit>100)
+                    crit=100;
+                damage += dmgafterdefence(((1+crit/100)*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD)*currentability.TOTALADratio)+currentability.BONUSADratio*itemstats.AD+currentability.ADdmg, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, itemstats.ARM_FLAT_PEN, itemstats.ARM_PER_PEN);
+                damage += dmgafterdefence(currentability.APdmg+currentability.APratio*itemstats.AP, target.getStats().getSpellblock()+ target.getStats().getSpellblockperlevel()* level, itemstats.MR_FLAT_PEN, itemstats.MR_PER_PEN); 
             }
             if (debug) {
                 System.out.println("dmg = " + damage);
@@ -47,7 +50,7 @@ public class Graph {
         return (0);
     }
 
-    public static int rotationdps(Champion attacker, Champion target, List<ChampionSpell> rotation, ArrayList<Item> purchasedItems, int level) {
+    public static int rotationdps(Champion attacker, Champion target, List<Ability> rotation, ArrayList<Item> purchasedItems, int level) {
         double damage = 0;
         BonusStats itemstats = new BonusStats();
         for (int i = 0; i < purchasedItems.size(); i++) {
@@ -62,10 +65,10 @@ public class Graph {
 
             for (int k = 0; k < rotation.size(); k++) {
 
-                if (rotation.get(k).getVars() == null) {
+ 
                     damage += dmgafterdefence(itemstats.CRIT*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0)
                             * (0.625 / (1 + attacker.getStats().getAttackspeedoffset())) * (1 + itemstats.AS/100+attacker.getStats().getAttackspeedperlevel() * level / 100);
-                }
+                
             }
             if (debug) {
                 System.out.println("dmg = " + damage);

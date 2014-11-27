@@ -20,6 +20,8 @@ public class BonusStats {
     public double CRIT = 0;
     public double ARM_PER_PEN = 0;
     public double ARM_FLAT_PEN = 0;
+    public double MR_PER_PEN = 0;
+    public double MR_FLAT_PEN = 0;
     public double MR = 0;
 
     public void addstats(BasicDataStats data) {
@@ -28,6 +30,8 @@ public class BonusStats {
         AS += data.getFlatAttackSpeedMod();
         ARM += data.getFlatArmorMod();
         CRIT += data.getFlatCritChanceMod();
+        MR_PER_PEN += data.getrPercentMagicPenetrationMod();
+        MR_FLAT_PEN += data.getrFlatMagicPenetrationMod();
         ARM_PER_PEN += data.getrPercentArmorPenetrationMod();
         ARM_FLAT_PEN += data.getrFlatArmorPenetrationMod();
         MR += data.getFlatSpellBlockMod();//<-weird
@@ -39,6 +43,8 @@ public class BonusStats {
         AS -= data.getFlatAttackSpeedMod();
         ARM -= data.getFlatArmorMod();
         CRIT -= data.getFlatCritChanceMod();
+        MR_PER_PEN -= data.getrPercentMagicPenetrationMod();
+        MR_FLAT_PEN -= data.getrFlatMagicPenetrationMod();
         ARM_PER_PEN -= data.getrPercentArmorPenetrationMod();
         ARM_FLAT_PEN -= data.getrFlatArmorPenetrationMod();
         MR -= data.getFlatSpellBlockMod();//<-weird

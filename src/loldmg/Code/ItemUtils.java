@@ -24,34 +24,31 @@ public class ItemUtils {
      */
     public static Item[] allItems;
     ArrayList<Item> finalItems;
-    int dps ;
+    int dps;
     public static int gold;
     static boolean debug = false;
+    static List<Ability> rotation = new ArrayList<Ability>();
 
     public void PurchaseMaxItems(ArrayList<Item> purchasedItems, Champion myChamp, Champion target, int level, int cash) {
         int cashtemp;
-            for (int i = 0; i < allItems.length; i++) {
+        for (int i = 0; i < allItems.length; i++) {
 
-                Item item = allItems[i];
-                if (item.getGold().getTotal() > 359) {
+            Item item = allItems[i];
+            if (item.getGold().getTotal() > 359) {
 
-                    cashtemp = breakdowninit(item, purchasedItems, cash);
+                cashtemp = breakdowninit(item, purchasedItems, cash);
 
-                    if (cashtemp != cash) {
-                        if (debug) {
-                            printitemlist(changeditems);
-                        }
-                        PurchaseMaxItems(changeditems, myChamp, target, level, cashtemp);
+                if (cashtemp != cash) {
+                    if (debug) {
+                        printitemlist(changeditems);
                     }
+                    PurchaseMaxItems(changeditems, myChamp, target, level, cashtemp);
                 }
             }
-        
-        //calculate dps for each item
-        List<ChampionSpell> rotation = new ArrayList<ChampionSpell>();
-        ChampionSpell aa = new ChampionSpell();
-        rotation.add(aa);
+        }
 
-        int dps2 = Graph.rotationdps(myChamp, target, rotation, purchasedItems, level);
+        //calculate dps for each item
+        int dps2 = DamageCalculation.rotationdmg(myChamp, target, rotation, purchasedItems, level);
 
         if (dps2 > dps) {
             //System.out.println("max curr dps= " + dps2);
@@ -66,6 +63,19 @@ public class ItemUtils {
     }
 
     public ArrayList<Item> FindBestItemsToPurchase(ArrayList<Item> currentItems, Champion myChamp, Champion target, int level, int currentGold) {
+
+        Ability aa = new Ability();
+        Ability spear = new Ability();
+        Ability heartseaker = new Ability();
+        spear.ADdmg = 80;
+        spear.BONUSADratio = (float) 1.4;
+        heartseaker.ADdmg = 320;
+        heartseaker.BONUSADratio = (float) 3.6;
+        aa.TOTALADratio = 1;
+        rotation.add(aa);
+        rotation.add(spear);
+        rotation.add(heartseaker);
+
         PurchaseMaxItems(currentItems, myChamp, target, level, currentGold);
         System.out.println("build");
         for (Item item : finalItems) {
@@ -75,7 +85,7 @@ public class ItemUtils {
     }
     static ArrayList<Item> changeditems;
 
-    static int breakdown(Item combineditem, ArrayList<Item> currentItems,int maxcost) {
+    static int breakdown(Item combineditem, ArrayList<Item> currentItems, int maxcost) {
 
         int cost = combineditem.getGold().getBase();
         List<String> parts = combineditem.getFrom();
@@ -98,12 +108,13 @@ public class ItemUtils {
                     }
                 }
                 if (found == false) {
-                    cost += breakdown(itemList.getData().get(part), currentItems,maxcost);
-                    if(cost>maxcost){
+                    cost += breakdown(itemList.getData().get(part), currentItems, maxcost);
+                    if (cost > maxcost) {
                         if (debug) {
                             System.out.println("not enough money");
                         }
-                        break;}
+                        break;
+                    }
                 }
             }
             if (debug) {
@@ -124,11 +135,11 @@ public class ItemUtils {
         for (Item temp : currentItems) {
             currentItems2.add(temp);
         }
-        int finalcost = breakdown(combineditem, currentItems2,money);
+        int finalcost = breakdown(combineditem, currentItems2, money);
         if (debug) {
             System.out.println("inital cost: " + combineditem.getGold().getTotal() + " , actual cost : " + finalcost);
         }
-        if (finalcost < money && currentItems2.size()<6) {
+        if (finalcost < money && currentItems2.size() < 6) {
             currentItems2.add(combineditem);
             changeditems = currentItems2;
             if (debug) {
