@@ -48,35 +48,11 @@ public class LolDmg implements
                     loadingFrame.setVisible(true);
                 }
             });
-            File f = new File("championlist.data");
-            if (f.exists() && !f.isDirectory()) { // Read from disk using FileInputStream
-                FileInputStream f_in = new FileInputStream("championlist.data");
-
-                ObjectInputStream obj_in = new ObjectInputStream(f_in);
-                Object obj = obj_in.readObject();
-                if (obj instanceof ChampionList) {
-                    championList = (ChampionList) obj;
-                }
-                f_in = new FileInputStream("itemlist.data");
-
-                obj_in = new ObjectInputStream(f_in);
-                obj = obj_in.readObject();
-                if (obj instanceof ItemList) {
-                    itemList = (ItemList) obj;
-                }
-            } else {
+            
 
                 championList = api.getDataChampionList(Region.NA, null, null, true, ChampData.ALL);
                 itemList = api.getDataItemList(null, null, ItemListData.ALL);
-                
-                FileOutputStream f_out = new FileOutputStream("championlist.data");
-                ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-                obj_out.writeObject(championList);
-
-                f_out = new FileOutputStream("itemlist.data");
-                obj_out = new ObjectOutputStream(f_out);
-                obj_out.writeObject(itemList);
-            }
+                        
 
             ItemUtils.allItems = sort.getaditems(itemList);
 
