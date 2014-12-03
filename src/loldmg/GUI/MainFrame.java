@@ -112,16 +112,16 @@ public class MainFrame extends javax.swing.JFrame {
         
         ArrayList<Item> purchasedItems = new ArrayList<Item>();
         
-        int gold = 2000;
+        int gold = 475;
         
-        for (int level = 1; level < 10; level++) {
+        for (int level = 1; level < 19; level++) {
             System.out.println("level: "+level+" gold: "+gold);
             
             
             ItemUtils buildgetter=new ItemUtils();
             purchasedItems = buildgetter.FindBestItemsToPurchase(purchasedItems, dealer, target, level, gold);
            gold=buildgetter.gold;
-           gold+=1000;
+           gold+= 200 + 100 * level / 3f;
             /*for (Item itemToPurchase : itemsToPurchase) {
                 gold -= itemToPurchase.getGold().getBase();
                 ItemUtils.PurchaseItem(purchasedItems, itemToPurchase);

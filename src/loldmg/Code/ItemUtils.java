@@ -73,8 +73,8 @@ public class ItemUtils {
         heartseaker.BONUSADratio = (float) 3.6;
         aa.TOTALADratio = 1;
         rotation.add(aa);
-        rotation.add(spear);
-        rotation.add(heartseaker);
+        //rotation.add(spear);
+        //rotation.add(heartseaker);
 
         PurchaseMaxItems(currentItems, myChamp, target, level, currentGold);
         System.out.println("build");
