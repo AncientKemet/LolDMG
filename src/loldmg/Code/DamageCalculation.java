@@ -6,7 +6,6 @@
 package loldmg.Code;
 
 import dto.Static.Champion;
-import dto.Static.ChampionSpell;
 import dto.Static.Item;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class DamageCalculation {
     }
 
     public static int rotationdps(Champion attacker, Champion target, List<Ability> rotation, ArrayList<Item> purchasedItems, int level) {
-        double damage = 0;
+        double damage ;
         BonusStats itemstats = new BonusStats();
         for (int i = 0; i < purchasedItems.size(); i++) {
             itemstats.addstats(purchasedItems.get(i).getStats());

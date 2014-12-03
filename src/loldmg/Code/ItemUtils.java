@@ -34,15 +34,17 @@ public class ItemUtils {
         for (int i = 0; i < allItems.length; i++) {
 
             Item item = allItems[i];
-            if (item.getGold().getTotal() > 359) {
+            if (item.getDepth() == 1 || !purchasedItems.contains(item)) {
+                if (item.getGold().getTotal() > 359) {
 
-                cashtemp = breakdowninit(item, purchasedItems, cash);
+                    cashtemp = breakdowninit(item, purchasedItems, cash);
 
-                if (cashtemp != cash) {
-                    if (debug) {
-                        printitemlist(changeditems);
+                    if (cashtemp != cash) {
+                        if (debug) {
+                            printitemlist(changeditems);
+                        }
+                        PurchaseMaxItems(changeditems, myChamp, target, level, cashtemp);
                     }
-                    PurchaseMaxItems(changeditems, myChamp, target, level, cashtemp);
                 }
             }
         }
