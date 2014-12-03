@@ -34,12 +34,18 @@ public class DamageCalculation {
             damage = 0;
             Ability currentability;
             for (int k = 0; k < rotation.size(); k++) {
-               currentability =rotation.get(k);
-                double crit=itemstats.CRIT;
-                if(crit>100)
-                    crit=100;
-                damage += dmgafterdefence(((1+crit/100)*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD)*currentability.TOTALADratio)+currentability.BONUSADratio*itemstats.AD+currentability.ADdmg, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, itemstats.ARM_FLAT_PEN, itemstats.ARM_PER_PEN);
-                damage += dmgafterdefence(currentability.APdmg+currentability.APratio*itemstats.AP, target.getStats().getSpellblock()+ target.getStats().getSpellblockperlevel()* level, itemstats.MR_FLAT_PEN, itemstats.MR_PER_PEN); 
+                currentability = rotation.get(k);
+                if (currentability.cancrit) {
+                    double crit = itemstats.CRIT;
+                    if (crit > 1) {
+                        crit = 1;
+                    }
+                    damage += dmgafterdefence((1 + crit) * ((attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD) * currentability.TOTALADratio + currentability.BONUSADratio * itemstats.AD + currentability.ADdmg), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, itemstats.ARM_FLAT_PEN, itemstats.ARM_PER_PEN);
+                    damage += dmgafterdefence(currentability.APdmg + currentability.APratio * itemstats.AP, target.getStats().getSpellblock() + target.getStats().getSpellblockperlevel() * level, itemstats.MR_FLAT_PEN, itemstats.MR_PER_PEN);
+                } else {
+                    damage += dmgafterdefence(((attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD) * currentability.TOTALADratio) + currentability.BONUSADratio * itemstats.AD + currentability.ADdmg, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, itemstats.ARM_FLAT_PEN, itemstats.ARM_PER_PEN);
+                    damage += dmgafterdefence(currentability.APdmg + currentability.APratio * itemstats.AP, target.getStats().getSpellblock() + target.getStats().getSpellblockperlevel() * level, itemstats.MR_FLAT_PEN, itemstats.MR_PER_PEN);
+                }
             }
             if (debug) {
                 System.out.println("dmg = " + damage);
@@ -65,10 +71,9 @@ public class DamageCalculation {
 
             for (int k = 0; k < rotation.size(); k++) {
 
- 
-                    damage += dmgafterdefence(itemstats.CRIT*(attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0)
-                            * (0.625 / (1 + attacker.getStats().getAttackspeedoffset())) * (1 + itemstats.AS/100+attacker.getStats().getAttackspeedperlevel() * level / 100);
-                
+                damage += dmgafterdefence(itemstats.CRIT * (attacker.getStats().getAttackdamage() + attacker.getStats().getAttackdamageperlevel() * level + itemstats.AD), target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, 0, 0)
+                        * (0.625 / (1 + attacker.getStats().getAttackspeedoffset())) * (1 + itemstats.AS / 100 + attacker.getStats().getAttackspeedperlevel() * level / 100);
+
             }
             if (debug) {
                 System.out.println("dmg = " + damage);

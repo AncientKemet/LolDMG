@@ -15,5 +15,8 @@ public class Ability {
     float APratio=0;
     float ADdmg=0;
     float APdmg=0;
+    boolean cancrit;
+    boolean scalesfromas;
+    boolean scalesfromcdr;
     float cooldown=10000000;
 }
