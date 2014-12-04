@@ -126,7 +126,10 @@ public class MainFrame extends javax.swing.JFrame {
                 gold -= itemToPurchase.getGold().getBase();
                 ItemUtils.PurchaseItem(purchasedItems, itemToPurchase);
             }*/
-            
+           attackerBonusStats = new BonusStats();
+            for (Item i : purchasedItems) {
+                attackerBonusStats.addstats(i.getStats());
+            }
             series1.add(level, aadps.GetAADPS(dealer, attackerBonusStats, target, targetBonusStats, level));
         }
 
