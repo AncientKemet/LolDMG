@@ -23,6 +23,7 @@ public class BonusStats {
     public double MR_PER_PEN = 0;
     public double MR_FLAT_PEN = 0;
     public double MR = 0;
+    public double CDR=0;
 
     public void addstats(BasicDataStats data) {
         AD += data.getFlatPhysicalDamageMod();
@@ -35,6 +36,7 @@ public class BonusStats {
         ARM_PER_PEN += data.getrPercentArmorPenetrationMod();
         ARM_FLAT_PEN += data.getrFlatArmorPenetrationMod();
         MR += data.getFlatSpellBlockMod();//<-weird
+        CDR+=data.getrPercentCooldownMod();
     }
 
     public void substats(BasicDataStats data) {
@@ -48,5 +50,6 @@ public class BonusStats {
         ARM_PER_PEN -= data.getrPercentArmorPenetrationMod();
         ARM_FLAT_PEN -= data.getrFlatArmorPenetrationMod();
         MR -= data.getFlatSpellBlockMod();//<-weird
+        CDR-=data.getrPercentCooldownMod();
     }
 }

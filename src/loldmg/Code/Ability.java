@@ -10,13 +10,13 @@ package loldmg.Code;
  * @author User
  */
 public class Ability {
-    float BONUSADratio=0;
-    float TOTALADratio=0;
-    float APratio=0;
-    float ADdmg=0;
-    float APdmg=0;
-    boolean cancrit=false;
-    boolean scalesfromas=false;
-    boolean scalesfromcdr=false;
-    float cooldown=10000000;
+    public float BONUSADratio=0;
+    public float TOTALADratio=0;
+    public float APratio=0;
+    public float ADdmg=0;
+    public float APdmg=0;
+    public boolean cancrit=false;
+    public boolean scalesfromas=false;
+    public boolean scalesfromcdr=false;
+    public float cooldown=10000000;
 }
