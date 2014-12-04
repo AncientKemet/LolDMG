@@ -13,10 +13,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import loldmg.Code.AADPSGraph;
+import loldmg.Code.Ability;
 import loldmg.Code.BonusStats;
 import loldmg.Code.HealthGraph;
 import loldmg.Code.Interfaces.GraphInterface;
 import loldmg.Code.ItemUtils;
+import static loldmg.Code.ItemUtils.rotation;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -113,7 +115,22 @@ public class MainFrame extends javax.swing.JFrame {
         ArrayList<Item> purchasedItems = new ArrayList<Item>();
         
         int gold = 475;
-        
+                Ability aa = new Ability();
+        Ability spear = new Ability();
+        Ability heartseaker = new Ability();
+        spear.ADdmg = 80;
+        spear.BONUSADratio = (float) 1.4;
+        spear.scalesfromcdr=true;
+        spear.cooldown=4;
+        heartseaker.ADdmg = 80;
+        heartseaker.BONUSADratio = (float) 3.6;
+        heartseaker.scalesfromcdr=true;
+        heartseaker.cooldown=10;
+        aa.TOTALADratio = 1;
+        aa.scalesfromas=true;
+        rotation.add(aa);
+        rotation.add(spear);
+        rotation.add(heartseaker);
         for (int level = 1; level < 19; level++) {
             System.out.println("level: "+level+" gold: "+gold);
             
