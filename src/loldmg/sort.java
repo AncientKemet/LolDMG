@@ -19,12 +19,14 @@ public class sort {
         Item[] tempstorage = new Item[allitems.getData().size()];
         int loc = 0;
         for (String key : allitems.getData().keySet()) {
-            if( !allitems.getData().get(key).getMaps().containsKey("1")){//for sr
+            Item i =  allitems.getData().get(key) ;
+            if(i!=null && i.getMaps() == null){
             BasicDataStats stats = allitems.getData().get(key).getStats();
             if (stats.getPercentAttackSpeedMod() > 0 || stats.getFlatCritChanceMod() > 0 || stats.getFlatPhysicalDamageMod() > 0 || stats.getrFlatArmorPenetrationMod() > 0 || stats.getrPercentArmorPenetrationMod() > 0) {
-                tempstorage[loc] = allitems.getData().get(key);
+                tempstorage[loc] = i;
                 loc++;
-            }}
+            }
+            }
             
         }
         Item[] finalstorage=new Item[loc];

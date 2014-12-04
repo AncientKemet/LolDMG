@@ -25,6 +25,8 @@ public class AADPSGraph implements DPSInterface {
             baseDmg *= baseAttackSpeed + ((attackerStats.AS + baseAttackSpeed *(attacker.getStats().getAttackspeedperlevel() * level) / 100));
             
             double damage = DamageReduction.dmgafterdefence(baseDmg + attackerStats.AD, target.getStats().getArmor() + target.getStats().getArmorperlevel() * level, attackerStats.ARM_FLAT_PEN, attackerStats.ARM_PER_PEN);
+            
+            
             return (float) damage;
     }
 
